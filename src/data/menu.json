@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "name": "Капучино",
+    "price": 190,
+    "category": "coffee",
+    "badge": "Хит",
+    "image": "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=800&q=80",
+    "description": "Классический капучино с плотной молочной пеной"
+  },
+  {
+    "id": 2,
+    "name": "Латте",
+    "price": 210,
+    "category": "coffee",
+    "badge": "",
+    "image": "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=800&q=80",
+    "description": "Мягкий кофе с большим количеством молока"
+  },
+  {
+    "id": 3,
+    "name": "Американо",
+    "price": 160,
+    "category": "coffee",
+    "badge": "",
+    "image": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&q=80",
+    "description": "Черный кофе на каждый день"
+  },
+  {
+    "id": 4,
+    "name": "Флэт Уайт",
+    "price": 230,
+    "category": "coffee",
+    "badge": "Новый",
+    "image": "https://images.unsplash.com/photo-1517701604599-bb29b565090c?w=800&q=80",
+    "description": "Более крепкий кофе с бархатным молоком"
+  },
+  {
+    "id": 5,
+    "name": "Айс Латте",
+    "price": 240,
+    "category": "cold",
+    "badge": "Лето",
+    "image": "https://images.unsplash.com/photo-1517701604599-bb29b565090c?w=800&q=80",
+    "description": "Освежающий латте со льдом"
+  },
+  {
+    "id": 6,
+    "name": "Матча Тоник",
+    "price": 260,
+    "category": "cold",
+    "badge": "",
+    "image": "https://images.unsplash.com/photo-1515823064-d6e0c04616a7?w=800&q=80",
+    "description": "Легкий тонизирующий напиток"
+  },
+  {
+    "id": 7,
+    "name": "Круассан",
+    "price": 170,
+    "category": "food",
+    "badge": "",
+    "image": "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=800&q=80",
+    "description": "Свежий круассан к кофе"
+  },
+  {
+    "id": 8,
+    "name": "Чизкейк",
+    "price": 250,
+    "category": "food",
+    "badge": "",
+    "image": "https://images.unsplash.com/photo-1567171466295-4afa63d45416?w=800&q=80",
+    "description": "Нежный десерт к вечернему латте"
+  }
+]
