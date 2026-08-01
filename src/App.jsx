@@ -1,6 +1,5 @@
-import {useMemo, useState} from "react";
+import {useMemo, useState, useEffect, useRef} from "react";
 import menu from "./data/menu.json";
-import {useEffect} from "react";
 
 const categories = [
   {id: "all", label: "Все"},
@@ -16,6 +15,8 @@ function App() {
   const [pickupTime, setPickupTime] = useState("10:15");
   const [lastOrder, setLastOrder] = useState(null);
 
+  const timeInputRef = useRef(null);
+
   useEffect(() => {
     const tg = window.Telegram?.WebApp;
     if (!tg) return;
@@ -23,6 +24,16 @@ function App() {
     tg.ready();
     tg.expand();
   }, []);
+
+  const openTimePicker = () => {
+    if (timeInputRef.current) {
+      if ("showPicker" in HTMLInputElement.prototype) {
+        timeInputRef.current.showPicker();
+      } else {
+        timeInputRef.current.click();
+      }
+    }
+  };
 
   const filteredMenu =
     activeCategory === "all"
@@ -90,27 +101,7 @@ function App() {
 
   return (
     <div className="app-shell">
-      <h1 style={{color: "red", fontSize: "40px"}}>TEST 123</h1>
       <div className="phone">
-        <div className="tg-topbar">
-          <div className="tg-dot" />
-          <div className="tg-title-wrap">
-            <span className="tg-title">North Bean Coffee</span>
-            <span className="tg-subtitle">бот · mini app demo</span>
-          </div>
-        </div>
-
-        <div className="hero">
-          <div>
-            <p className="hero-tag">Предзаказ без очереди</p>
-            <h1>North Bean Coffee</h1>
-            <p className="hero-text">
-              Закажи кофе в Telegram и забери к нужному времени.
-            </p>
-          </div>
-          <div className="hero-badge">7 мин</div>
-        </div>
-
         <main className="content">
           {activeTab === "menu" && (
             <>
@@ -178,6 +169,16 @@ function App() {
 
           {activeTab === "bonus" && (
             <section className="stack">
+              <div className="section-header">
+                <button
+                  className="back-btn"
+                  onClick={() => setActiveTab("menu")}
+                >
+                  ←
+                </button>
+                <h2 className="section-title">Бонусы</h2>
+              </div>
+
               <div className="bonus-main">
                 <p className="card-label">Бонусная карта</p>
                 <h2>4 / 6 кофе</h2>
@@ -210,7 +211,15 @@ function App() {
 
           {activeTab === "cart" && (
             <section className="stack">
-              <h2 className="section-title">Корзина</h2>
+              <div className="section-header">
+                <button
+                  className="back-btn"
+                  onClick={() => setActiveTab("menu")}
+                >
+                  ←
+                </button>
+                <h2 className="section-title">Корзина</h2>
+              </div>
 
               {!cart.length ? (
                 <div className="empty-card">
@@ -245,13 +254,36 @@ function App() {
                   </div>
 
                   <div className="info-card">
-                    <label className="input-label">Время самовывоза</label>
-                    <input
-                      className="time-input"
-                      type="time"
-                      value={pickupTime}
-                      onChange={(e) => setPickupTime(e.target.value)}
-                    />
+                    <div className="time-info-header">
+                      <span className="input-label">Время самовывоза</span>
+                      <span className="time-val">{pickupTime}</span>
+                    </div>
+
+                    <div className="time-picker-wrap">
+                      <button
+                        type="button"
+                        className="time-btn"
+                        onClick={openTimePicker}
+                      >
+                        🕒 Выбрать время
+                      </button>
+
+                      <input
+                        ref={timeInputRef}
+                        type="time"
+                        value={pickupTime}
+                        onChange={(e) => setPickupTime(e.target.value)}
+                        style={{
+                          position: "absolute",
+                          left: "50%",
+                          bottom: "-10px",
+                          opacity: 0,
+                          pointerEvents: "none",
+                          width: "1px",
+                          height: "1px",
+                        }}
+                      />
+                    </div>
                   </div>
 
                   <div className="checkout-card">
@@ -275,7 +307,15 @@ function App() {
 
           {activeTab === "orders" && (
             <section className="stack">
-              <h2 className="section-title">Мой заказ</h2>
+              <div className="section-header">
+                <button
+                  className="back-btn"
+                  onClick={() => setActiveTab("menu")}
+                >
+                  ←
+                </button>
+                <h2 className="section-title">Мой заказ</h2>
+              </div>
 
               {lastOrder ? (
                 <div className="order-card">
@@ -306,35 +346,6 @@ function App() {
             <strong>{totalPrice} ₽</strong>
           </button>
         )}
-
-        <nav className="bottom-nav">
-          <button
-            className={activeTab === "menu" ? "nav-btn active-nav" : "nav-btn"}
-            onClick={() => setActiveTab("menu")}
-          >
-            Меню
-          </button>
-          <button
-            className={activeTab === "bonus" ? "nav-btn active-nav" : "nav-btn"}
-            onClick={() => setActiveTab("bonus")}
-          >
-            Бонусы
-          </button>
-          <button
-            className={activeTab === "cart" ? "nav-btn active-nav" : "nav-btn"}
-            onClick={() => setActiveTab("cart")}
-          >
-            Корзина
-          </button>
-          <button
-            className={
-              activeTab === "orders" ? "nav-btn active-nav" : "nav-btn"
-            }
-            onClick={() => setActiveTab("orders")}
-          >
-            Заказы
-          </button>
-        </nav>
       </div>
     </div>
   );
